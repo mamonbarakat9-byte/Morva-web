@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react'
 import { useLanguage } from '@/hooks/useLanguage'
 import { translations } from '@/lib/i18n'
 import MorvaLogoImage from '@/components/ui/MorvaLogoImage'
+import SoundToggle from '@/components/ui/SoundToggle'
+import { useSoundEffects } from '@/hooks/useSoundEffects'
 
 const navIds = ['services', 'pricing', 'portfolio', 'about', 'contact'] as const
 
@@ -11,6 +13,7 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const { lang, setLang } = useLanguage()
+  const { playHoverSound, playClickSound } = useSoundEffects()
   const nav = translations[lang].nav
 
   useEffect(() => {
@@ -53,7 +56,11 @@ export default function Header() {
           {navLinks.map(({ key, id }) => (
             <button
               key={id}
-              onClick={() => scrollTo(id)}
+              onClick={() => {
+                playClickSound()
+                scrollTo(id)
+              }}
+              onMouseEnter={playHoverSound}
               className="text-morva-muted hover:text-white text-sm tracking-wide transition-colors duration-200"
             >
               {nav[key]}
@@ -63,17 +70,28 @@ export default function Header() {
 
         {/* Right controls */}
         <div className="flex items-center gap-4">
+          {/* Sound toggle */}
+          <SoundToggle />
+
           {/* Language toggle */}
           <div className="flex items-center gap-1">
             <button
-              onClick={() => setLang('en')}
+              onClick={() => {
+                playClickSound()
+                setLang('en')
+              }}
+              onMouseEnter={playHoverSound}
               className={`text-xs px-2 py-1 transition-colors ${lang === 'en' ? 'text-gold border-b border-gold' : 'text-morva-muted hover:text-white'}`}
             >
               EN
             </button>
             <span className="text-morva-muted text-xs">|</span>
             <button
-              onClick={() => setLang('ar')}
+              onClick={() => {
+                playClickSound()
+                setLang('ar')
+              }}
+              onMouseEnter={playHoverSound}
               className={`text-xs px-2 py-1 transition-colors ${lang === 'ar' ? 'text-gold border-b border-gold' : 'text-morva-muted hover:text-white'}`}
             >
               AR
