@@ -1,0 +1,50 @@
+<svg viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#E8C874;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#D4AF37;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#B8960C;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- M Icon -->
+  <g id="m-icon" filter="url(#glow)">
+    <!-- Left vertical bar -->
+    <rect x="35" y="55" width="8" height="75" fill="url(#goldGradient)" stroke="#E8C874" stroke-width="1"/>
+    <rect x="39" y="60" width="2" height="65" fill="#FFD700" opacity="0.3"/>
+
+    <!-- Left inner line 1 -->
+    <rect x="45" y="65" width="3" height="50" fill="url(#goldGradient)" stroke="#E8C874" stroke-width="0.5"/>
+
+    <!-- Left inner line 2 -->
+    <rect x="51" y="70" width="3" height="45" fill="url(#goldGradient)" stroke="#E8C874" stroke-width="0.5"/>
+
+    <!-- Center V peak -->
+    <polygon points="75,65 60,95 90,95" fill="url(#goldGradient)" stroke="#E8C874" stroke-width="1"/>
+
+    <!-- Right inner line 1 -->
+    <rect x="106" y="70" width="3" height="45" fill="url(#goldGradient)" stroke="#E8C874" stroke-width="0.5"/>
+
+    <!-- Right inner line 2 -->
+    <rect x="112" y="65" width="3" height="50" fill="url(#goldGradient)" stroke="#E8C874" stroke-width="0.5"/>
+
+    <!-- Right vertical bar -->
+    <rect x="157" y="55" width="8" height="75" fill="url(#goldGradient)" stroke="#E8C874" stroke-width="1"/>
+    <rect x="159" y="60" width="2" height="65" fill="#FFD700" opacity="0.3"/>
+  </g>
+
+  <!-- Text: MORVA -->
+  <text x="100" y="180" font-family="Cormorant Garamond, serif" font-size="52" font-weight="300" text-anchor="middle" fill="url(#goldGradient)" letter-spacing="8">MORVA</text>
+
+  <!-- Decorative line + diamond -->
+  <line x1="45" y1="200" x2="75" y2="200" stroke="url(#goldGradient)" stroke-width="1.5" opacity="0.7"/>
+  <polygon points="100,205 95,200 100,195 105,200" fill="url(#goldGradient)"/>
+  <line x1="125" y1="200" x2="155" y2="200" stroke="url(#goldGradient)" stroke-width="1.5" opacity="0.7"/>
+</svg>
