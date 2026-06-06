@@ -11,6 +11,9 @@ export default function CustomCursor() {
     const ring = ringRef.current
     if (!dot || !ring) return
 
+    /* Skip on mobile devices */
+    if (window.matchMedia('(hover: none)').matches) return
+
     /* Prefer-reduced-motion check */
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return
 

@@ -23,37 +23,56 @@ export default function Home() {
 
   /* Global GSAP: section label + headline reveals (sections handle their own card animations) */
   useEffect(() => {
+    /* Safely load GSAP with error handling */
     const load = async () => {
-      const { gsap }          = await import('gsap')
-      const { ScrollTrigger } = await import('gsap/ScrollTrigger')
-      gsap.registerPlugin(ScrollTrigger)
+      try {
+        const { gsap }          = await import('gsap')
+        const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+        gsap.registerPlugin(ScrollTrigger)
 
-      gsap.utils.toArray<HTMLElement>('.section-label').forEach(el => {
-        gsap.fromTo(
-          el,
-          { y: 16, opacity: 0 },
-          {
-            y: 0, opacity: 1, duration: 0.65, ease: 'power2.out',
-            scrollTrigger: { trigger: el, start: 'top 87%' },
-          }
-        )
-      })
+        /* Only animate if DOM elements exist */
+        const labels = gsap.utils.toArray<HTMLElement>('.section-label')
+        const headlines = gsap.utils.toArray<HTMLElement>('.section-headline')
 
-      gsap.utils.toArray<HTMLElement>('.section-headline').forEach(el => {
-        gsap.fromTo(
-          el,
-          { y: 36, opacity: 0 },
-          {
-            y: 0, opacity: 1, duration: 0.9, ease: 'power3.out',
-            scrollTrigger: { trigger: el, start: 'top 82%' },
-            delay: 0.1,
-          }
-        )
-      })
+        if (labels.length > 0) {
+          labels.forEach(el => {
+            gsap.fromTo(
+              el,
+              { y: 16, opacity: 0 },
+              {
+                y: 0, opacity: 1, duration: 0.65, ease: 'power2.out',
+                scrollTrigger: { trigger: el, start: 'top 87%' },
+              }
+            )
+          })
+        }
 
-      return () => ScrollTrigger.getAll().forEach((t: any) => t.kill())
+        if (headlines.length > 0) {
+          headlines.forEach(el => {
+            gsap.fromTo(
+              el,
+              { y: 36, opacity: 0 },
+              {
+                y: 0, opacity: 1, duration: 0.9, ease: 'power3.out',
+                scrollTrigger: { trigger: el, start: 'top 82%' },
+                delay: 0.1,
+              }
+            )
+          })
+        }
+
+        return () => {
+          ScrollTrigger.getAll().forEach((t: any) => {
+            try { t.kill() } catch (e) { /* silent */ }
+          })
+        }
+      } catch (err) {
+        console.warn('GSAP animation setup skipped:', err)
+        return () => {}
+      }
     }
-    load()
+    const cleanup = load()
+    return () => { cleanup.then(fn => fn?.()) }
   }, [])
 
   return (
